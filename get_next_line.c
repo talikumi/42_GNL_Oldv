@@ -12,12 +12,13 @@
 
 #include "get_next_line.h"
 
-char		*scan_line(char *str, int fd, int *toread)
+char	*scan_line(char *str, int fd, int *toread)
 {
 	char			*tmp;
 	char			buf[BUFFER_SIZE + 1];
 
-	while ((*toread = read(fd, buf, BUFFER_SIZE)) > 0)
+	*toread = read(fd, buf, BUFFER_SIZE);
+	while ((*toread) > 0)
 	{
 		buf[*toread] = '\0';
 		if (str == NULL)
@@ -34,7 +35,7 @@ char		*scan_line(char *str, int fd, int *toread)
 	return (str);
 }
 
-int			get_line(char *str, char **line)
+int	get_line(char *str, char **line)
 {
 	int				i;
 
@@ -61,7 +62,7 @@ int			get_line(char *str, char **line)
 	}
 }
 
-char		*buffer_left(char *str)
+char	*buffer_left(char *str)
 {
 	char			*tmp;
 	int				i;
@@ -83,7 +84,7 @@ char		*buffer_left(char *str)
 	return (str);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char		*str[2000];
 	int				buffer_excess;
